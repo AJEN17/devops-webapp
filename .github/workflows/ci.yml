@@ -1,0 +1,20 @@
+name: CI Pipeline with ChatOps
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Simulate Build Process
+        run: echo "Code checked out successfully. Build passed."
+
+      - name: Send Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_MESSAGE: "GitHub Action build was successful!"
+          SLACK_TITLE: "CI Build Status"
+          SLACK_COLOR: "good"
